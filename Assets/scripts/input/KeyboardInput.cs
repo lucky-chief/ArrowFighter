@@ -5,7 +5,8 @@ using System.Collections;
 public class KeyboardInput : MonoBehaviour, IInputControl
 {
     public event Action<Vector3> onMove;
-    public event Action<UnityEngine.Vector3> onFire;
+    public event Action<Vector3> onRotate;
+    public event Action onFire;
 
     // Use this for initialization
     void Start()
@@ -24,9 +25,17 @@ public class KeyboardInput : MonoBehaviour, IInputControl
             onMove.Invoke(v);
         }
 
-        if (onFire != null)
+        if (onRotate != null)
         {
-            onFire.Invoke(Input.mousePosition);
+            onRotate.Invoke(Input.mousePosition);
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(null != onFire)
+            {
+                onFire.Invoke();
+            }
         }
     }
 }

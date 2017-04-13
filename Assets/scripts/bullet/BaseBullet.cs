@@ -8,8 +8,14 @@ public enum BulletDamageAreaType
 
 public enum BulletDamageOpportunity
 {
-    Collidion,//碰撞的时候产生伤害
-    OnTime//消逝一段时间后产生伤害
+    OnCollision,//碰撞的时候产生伤害
+    OnTime//一段时间后产生伤害
+}
+
+public enum BulletDestroyType
+{
+    OnCollision,//碰撞消失
+    OnTime//一定时间后消失
 }
 
 public abstract class BaseBullet : MonoBehaviour
@@ -25,10 +31,6 @@ public abstract class BaseBullet : MonoBehaviour
     /// 造成的伤害计算公式：伤害值 = damage - 目标的防御值
     /// </summary>
     public int damage;
-    /// <summary>
-    /// 子弹的射程
-    /// </summary>
-    public float range;
     /// <summary>
     /// 子弹的飞行速度
     /// </summary>
@@ -47,6 +49,15 @@ public abstract class BaseBullet : MonoBehaviour
     /// 子弹的伤害时机
     /// </summary>
     public BulletDamageOpportunity damageOpportunity;
+    /// <summary>
+    /// 子弹销毁方式
+    /// </summary>
+    public BulletDestroyType destroyType;
+    /// <summary>
+    /// 子弹的销毁时间。
+    /// 只有当子弹的销毁方式为 BulletDestroyType.OnTime 时该字段有效
+    /// </summary>
+    public float detroyTime;
     /// <summary>
     /// 子弹的拥有者（玩家），子弹不会对此玩家造成伤害
     /// </summary>
@@ -75,21 +86,29 @@ public abstract class BaseBullet : MonoBehaviour
     /// 子弹的击中墙面的特效
     /// </summary>
     public GameObject eff_HitWall;
+    /// <summary>
+    /// 子弹的击退距离
+    /// </summary>
+    public float hitBackDistance;
     #endregion
 
-
+    protected RoleController mRoleCtrl;
 
     // Use this for initialization
     void Start()
     {
         OnLoad();
         Invoke("OnLifeTime",lifeTime);
+        if(destroyType == BulletDestroyType.OnTime)
+        {
+            Invoke("DestroySelf", detroyTime);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        OnUpdate();
+        OnUpdate(Time.deltaTime);
     }
 
     void OnDestroy()
@@ -100,48 +119,78 @@ public abstract class BaseBullet : MonoBehaviour
     #region 基本逻辑
     void OnLifeTime()
     {
-
+        CancelInvoke();
+        Destroy(gameObject);
     }
 
-    protected virtual void OnCollisionEnter(Collision collision)
+    void DestroySelf()
+    {
+        CancelInvoke();
+        Destroy(gameObject);
+    }
+
+    void DamageInterval()
+    {
+        ExcuteDamage();
+    }
+
+    protected virtual void OnTriggerEnter(Collider collision)
     {
         int layer = collision.gameObject.layer;
-        if (damageOpportunity == BulletDamageOpportunity.Collidion)
+        if (layer == LayerMask.NameToLayer("Ground"))
         {
-            if(layer == 1 << LayerMask.NameToLayer("Player"))
-            {
-                if(collision.gameObject == owner)
-                {
-                    return;
-                }
-                if(damageInterval == 0)
-                {
-                    ExcuteDamage(collision.gameObject.GetComponent<RoleController>());
-                    Destroy(gameObject);
-                }
-            }
-            else if(layer == 1 << LayerMask.NameToLayer("Ground"))
+            if(null != eff_HitGround)
             {
                 Instantiate(eff_HitGround, transform.position, Quaternion.identity);
-                Destroy(gameObject);
             }
-            else if (layer == 1 << LayerMask.NameToLayer("Wall"))
+            DestroySelf();
+        }
+        else if (layer == LayerMask.NameToLayer("Wall"))
+        {
+            if (null != eff_HitWall)
             {
                 Instantiate(eff_HitWall, transform.position, Quaternion.identity);
-                Destroy(gameObject);
             }
-
+            print("dddddddddddddddddd");
+            DestroySelf();
+        }
+        else
+        {
+            print("dddddddddddddddddd22");
+            if (damageOpportunity == BulletDamageOpportunity.OnCollision)
+            {
+                mRoleCtrl = collision.gameObject.GetComponent<RoleController>();
+                if(layer == 1 << LayerMask.NameToLayer("Player"))
+                {
+                    if(mRoleCtrl.gameObject == owner)
+                    {
+                        return;
+                    }
+                    if(damageInterval == 0)
+                    {
+                        ExcuteDamage();
+                        if(destroyType == BulletDestroyType.OnCollision)
+                        {
+                            DestroySelf();
+                        }
+                    }
+                    else
+                    {
+                        InvokeRepeating("DamageInterval", 0, damageInterval);
+                    }
+                }
+            }
         }
     }
     #endregion
 
-        #region 复写接口
-    protected abstract void OnLoad();
-    protected abstract void Destroy();
-    protected abstract void OnUpdate();
-    protected virtual void ExcuteDamage(RoleController player)
+    #region 复写接口
+    protected virtual void OnLoad() { }
+    protected virtual void Destroy() { }
+    protected virtual void OnUpdate(float deltaTime) { }
+    protected virtual void ExcuteDamage()
     {
-        player.Attributes.ChangeAttribute(AttributeName.ATTR_HP, Mathf.Clamp(damage - player.Attributes.Deffence, 1, damage));
+        mRoleCtrl.Attributes.ChangeAttribute(AttributeName.ATTR_HP, Mathf.Clamp(damage - mRoleCtrl.Attributes.Deffence, 1, damage));
     }
     #endregion
 }

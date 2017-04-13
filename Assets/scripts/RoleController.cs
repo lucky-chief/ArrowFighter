@@ -3,6 +3,8 @@ using System.Collections;
 
 public class RoleController : MonoBehaviour
 {
+    public LineBullet Test_LineB;
+
     IInputControl inputCtrl;
     CharacterController chCtrl;
 
@@ -17,6 +19,7 @@ public class RoleController : MonoBehaviour
     {
         inputCtrl = Camera.main.GetComponent<IInputControl>();
         inputCtrl.onMove += OnMove;
+        inputCtrl.onRotate += OnRotate;
         inputCtrl.onFire += OnFire;
         chCtrl = GetComponent<CharacterController>();
     }
@@ -37,7 +40,15 @@ public class RoleController : MonoBehaviour
         chCtrl.SimpleMove(dir.normalized * 5);
     }
 
-    void OnFire(Vector3 screenPoint)
+    void OnFire()
+    {
+        Vector3 bornPos = transform.forward * 2 + transform.position;
+
+        IMovement movement = (IMovement)Instantiate(Test_LineB);
+        movement.Move(bornPos, transform.rotation);
+    }
+
+    void OnRotate(Vector3 screenPoint)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPoint);
         RaycastHit hit;

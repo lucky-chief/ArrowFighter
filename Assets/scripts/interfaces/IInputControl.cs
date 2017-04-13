@@ -2,5 +2,6 @@
 
 public interface IInputControl {
     event Action<UnityEngine.Vector3> onMove;
-    event Action<UnityEngine.Vector3> onFire;
+    event Action<UnityEngine.Vector3> onRotate;
+    event Action onFire;
 }
