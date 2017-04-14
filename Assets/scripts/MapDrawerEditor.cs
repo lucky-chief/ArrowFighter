@@ -29,8 +29,10 @@ public class MapDrawerEditor : MonoBehaviour {
         p2 = new Vector3(-vn, 0, -vn);
         p3 = new Vector3(vn, 0, -vn);
 
-        mapCol = Mathf.FloorToInt((br.position.x - bl.position.x) / size);
-        mapRow = Mathf.FloorToInt((tr.position.z - br.position.z) / size);
+        mapCol = Mathf.FloorToInt((br.position.x - bl.position.x) / size) + 1;
+        mapRow = Mathf.FloorToInt((tr.position.z - br.position.z) / size) + 1;
+
+        print("cccc" + mapCol + "cccc" + mapRow);
         //RaycastHit hit0;
         //if (Physics.Raycast(p0.position, -Vector3.up, out hit0, 1000))
         //{
@@ -61,9 +63,9 @@ public class MapDrawerEditor : MonoBehaviour {
         Append(mapRow.ToString());
         Append(size.ToString());
 
-        for(int i = 0; i <= mapCol; i++)
+        for(int i = 0; i < mapCol; i++)
         {
-            for(int j = 0; j <= mapRow; j++)
+            for(int j = 0; j < mapRow; j++)
             {
                 if(RayCheck(i, j))
                 {
@@ -83,8 +85,9 @@ public class MapDrawerEditor : MonoBehaviour {
 
     void SaveToFile()
     {
+        print("dddddddddddd" + count);
         mapInfo = mapInfo.Substring(0, mapInfo.Length - 1);
-        File.WriteAllText(Application.dataPath + "/Resources/Config/MapData.txt",mapInfo.ToString(),Encoding.UTF8); 
+        File.WriteAllText(Application.dataPath + "/Resources/Config/MapData.txt",mapInfo,Encoding.UTF8); 
     }
 
     bool RayCheck(int col,int row)
@@ -109,9 +112,10 @@ public class MapDrawerEditor : MonoBehaviour {
         }
         return hitCount < 1;
     }
-
+    int count = 0;
     void Append(string info)
     {
+        count++;
         mapInfo += info + "|";
     }
 }

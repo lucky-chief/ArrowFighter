@@ -93,6 +93,21 @@ public class RoleAttribute : IArrowAttributes
         }
     }
 
+    private int _exp;
+    public int Exp
+    {
+        get
+        {
+            return _exp;
+        }
+
+        set
+        {
+            _exp = value;
+            Notify(AttributeName.ATTR_EXP, _exp);
+        }
+    }
+
     public event ArrowAttributeChange attributeChgEvent;
 
     public void ChangeAttribute(AttributeName attrName, object value)

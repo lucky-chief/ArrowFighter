@@ -16,22 +16,23 @@ public class Map : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         string[] s = mapData.text.Split('|');
+        print("================" + s.Length);
         mapCol = int.Parse(s[0]);
         mapRow = int.Parse(s[1]);
         size = float.Parse(s[2]);
         for(int i = 3; i < s.Length; i++)
         {
-            if(s[i] != "0")
+            if(s[i] == "1")
             {
                 int idx = i - 3;
-                int col = idx % mapCol;
-                int row = idx / mapCol;
-                Vector3 v = new Vector3(col * size, 0.5f, row * size) + new Vector3(-48,0,-48);
+                int col = idx / mapCol;
+                int row = idx % mapCol;
+                Vector3 v = new Vector3(col * size, 0.5f, -row * size) + new Vector3(-48, 0, 48);
                 FoodPoints.Add(v);
             }
         }
         StartCoroutine(SpawnFood());
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

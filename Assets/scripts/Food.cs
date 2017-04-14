@@ -1,8 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum FoodType
+{
+    Exp,
+    Hp
+}
+
 public class Food : MonoBehaviour
 {
+
+    public FoodType foodType;
+    public int value;
 
     // Use this for initialization
     void Start()
@@ -20,16 +29,16 @@ public class Food : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            RoleController roleCtrl = other.gameObject.GetComponent<RoleController>();
+            if(foodType == FoodType.Exp)
+            {
+                roleCtrl.Attributes.ChangeAttribute(AttributeName.ATTR_EXP, value);
+            }
+            else if(foodType == FoodType.Hp)
+            {
+                roleCtrl.Attributes.ChangeAttribute(AttributeName.ATTR_HP, value);
+            }
             Destroy(gameObject);
         }
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        //if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
-        //{
-        //    print("111111111111111111");
-        //    Destroy(gameObject);
-        //}
     }
 }

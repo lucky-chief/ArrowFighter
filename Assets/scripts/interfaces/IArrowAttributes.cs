@@ -3,6 +3,7 @@ using System.Collections;
 
 public enum AttributeName
 {
+    ATTR_EXP,
     ATTR_HP,
     ATTR_DEF,
     ATTR_ATK,
@@ -12,6 +13,10 @@ public enum AttributeName
 }
 
 public interface IArrowAttributes {
+    /// <summary>
+    /// 经验值
+    /// </summary>
+    int Exp { get; set; }
     /// <summary>
     /// 血量值
     /// </summary>
