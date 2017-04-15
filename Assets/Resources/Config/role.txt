@@ -1,0 +1,11 @@
+id	name	hp	speed	def	atk	critical	dodge	res_path
+1	伂排	4	4	0	0	0	0	prefabs/role
+2	伂排	4	4	0	0	0	0	prefabs/role
+3	伂排	4	4	0	0	0	0	prefabs/role
+4	伂排	4	4	0	0	0	0	prefabs/role
+5	伂排	4	4	0	0	0	0	prefabs/role
+6	伂排	4	4	0	0	0	0	prefabs/role
+7	伂排	4	4	0	0	0	0	prefabs/role
+8	伂排	4	4	0	0	0	0	prefabs/role
+9	伂排	4	4	0	0	0	0	prefabs/role
+10	伂排	4	4	0	0	0	0	prefabs/role
