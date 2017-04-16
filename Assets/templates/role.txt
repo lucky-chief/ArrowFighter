@@ -1,6 +1,6 @@
 ﻿id	name	hp	speed	def	atk	critical	dodge	res_path
 string	string	int	float	int	int	float	float	string
-10001	傻逼	4	4	0	0	0	0	prefabs/role
+10001	傻逼	4	1	0	0	0	0	prefabs/role
 10002	傻逼	4	4	0	0	0	0	prefabs/role
 10003	傻逼	4	4	0	0	0	0	prefabs/role
 10004	傻逼	4	4	0	0	0	0	prefabs/role

@@ -22,6 +22,7 @@ public class RoleController : MonoBehaviour
         inputCtrl.onRotate += OnRotate;
         inputCtrl.onFire += OnFire;
         chCtrl = GetComponent<CharacterController>();
+        attributes = new RoleAttribute("10001");
     }
 
     void OnDisable()
@@ -37,7 +38,7 @@ public class RoleController : MonoBehaviour
 
     void OnMove(Vector3 dir)
     {
-        chCtrl.SimpleMove(dir.normalized * 5);
+        chCtrl.SimpleMove(dir.normalized * attributes.Speed);
     }
 
     void OnFire()

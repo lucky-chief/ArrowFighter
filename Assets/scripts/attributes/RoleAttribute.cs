@@ -109,6 +109,16 @@ public class RoleAttribute : IArrowAttributes
     }
 
     public event ArrowAttributeChange attributeChgEvent;
+    public RoleAttribute(string roleId)
+    {
+        roleTemplateContainer tpl = new roleTemplateContainer();
+        _hp = tpl.TplData[roleId].hp;
+        _attack = tpl.TplData[roleId].atk;
+        _deffence = tpl.TplData[roleId].def;
+        _critical = tpl.TplData[roleId].critical;
+        _speed = tpl.TplData[roleId].speed;
+        _dodge = tpl.TplData[roleId].dodge;
+    }
 
     public void ChangeAttribute(AttributeName attrName, object value)
     {
@@ -120,17 +130,71 @@ public class RoleAttribute : IArrowAttributes
             case AttributeName.ATTR_CRT:
                 Critical += (float)value;
                 break;
+            case AttributeName.ATTR_DDG:
+                Dodge += (int)value;
+                break;
+            case AttributeName.ATTR_DEF:
+                Deffence += (int)value;
+                break;
+            case AttributeName.ATTR_EXP:
+                Exp += (int)value;
+                break;
+            case AttributeName.ATTR_HP:
+                Hp += (int)value;
+                break;
+            case AttributeName.ATTR_SPD:
+                Speed += (int)value;
+                break;
         }
+        Notify(attrName, value);
     }
 
     public void SetAttribute(AttributeName attrName, object value)
     {
-        throw new NotImplementedException();
+        switch (attrName)
+        {
+            case AttributeName.ATTR_ATK:
+                Attack = (int)value;
+                break;
+            case AttributeName.ATTR_CRT:
+                Critical = (float)value;
+                break;
+            case AttributeName.ATTR_DDG:
+                Dodge = (int)value;
+                break;
+            case AttributeName.ATTR_DEF:
+                Deffence = (int)value;
+                break;
+            case AttributeName.ATTR_EXP:
+                Exp = (int)value;
+                break;
+            case AttributeName.ATTR_HP:
+                Hp = (int)value;
+                break;
+            case AttributeName.ATTR_SPD:
+                Speed = (int)value;
+                break;
+        }
+        Notify(attrName, value);
     }
 
     private void Notify(AttributeName attrName, object value)
     {
-        if(null != attributeChgEvent)
+        if (value is int)
+        {
+            if ((int)value == 0)
+            {
+                return;
+            }
+        }
+        else if (value is float)
+        {
+            if ((float)value == 0)
+            {
+                return;
+            }
+        }
+        if (null != attributeChgEvent)
         {
             attributeChgEvent.Invoke(attrName, value);
         }

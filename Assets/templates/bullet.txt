@@ -1,0 +1,10 @@
+﻿id	name	path
+string	string	string
+50001	普通箭矢	prefabs/arrow01
+50002	忍者镖	prefabs/arrow01
+50003	激光棒	prefabs/arrow01
+50004	手里剑	prefabs/arrow01
+50005	铁锤	prefabs/arrow01
+50006	哑铃	prefabs/arrow01
+50007	火球	prefabs/arrow01
+50008	红色针	prefabs/arrow01

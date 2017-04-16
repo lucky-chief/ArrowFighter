@@ -31,13 +31,6 @@ public class MapDrawerEditor : MonoBehaviour {
 
         mapCol = Mathf.FloorToInt((br.position.x - bl.position.x) / size) + 1;
         mapRow = Mathf.FloorToInt((tr.position.z - br.position.z) / size) + 1;
-
-        print("cccc" + mapCol + "cccc" + mapRow);
-        //RaycastHit hit0;
-        //if (Physics.Raycast(p0.position, -Vector3.up, out hit0, 1000))
-        //{
-        //    Debug.Log(hit0.collider.gameObject.layer);
-        //}
     }
 	
 	// Update is called once per frame
@@ -70,9 +63,9 @@ public class MapDrawerEditor : MonoBehaviour {
                 if(RayCheck(i, j))
                 {
                     Append("1");
-                    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    cube.transform.position = new Vector3(i, 0, -j) * size + tl.position;
-                    cube.transform.localScale = Vector3.one * size;
+                    GameObject Sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    Sphere.transform.position = new Vector3(i, 0, -j) * size + tl.position;
+                    Sphere.transform.localScale = Vector3.one * size;
                 }
                 else
                 {
@@ -85,7 +78,6 @@ public class MapDrawerEditor : MonoBehaviour {
 
     void SaveToFile()
     {
-        print("dddddddddddd" + count);
         mapInfo = mapInfo.Substring(0, mapInfo.Length - 1);
         File.WriteAllText(Application.dataPath + "/Resources/Config/MapData.txt",mapInfo,Encoding.UTF8); 
     }

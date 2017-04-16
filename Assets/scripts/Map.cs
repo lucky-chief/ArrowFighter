@@ -16,7 +16,6 @@ public class Map : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         string[] s = mapData.text.Split('|');
-        print("================" + s.Length);
         mapCol = int.Parse(s[0]);
         mapRow = int.Parse(s[1]);
         size = float.Parse(s[2]);

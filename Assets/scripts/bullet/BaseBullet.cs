@@ -151,12 +151,10 @@ public abstract class BaseBullet : MonoBehaviour
             {
                 Instantiate(eff_HitWall, transform.position, Quaternion.identity);
             }
-            print("dddddddddddddddddd");
             DestroySelf();
         }
         else
         {
-            print("dddddddddddddddddd22");
             if (damageOpportunity == BulletDamageOpportunity.OnCollision)
             {
                 mRoleCtrl = collision.gameObject.GetComponent<RoleController>();

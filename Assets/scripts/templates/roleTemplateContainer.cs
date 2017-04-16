@@ -17,7 +17,7 @@ public class roleTemplateContainer
 
 	private Dictionary<string,roleTemplate> tplData = new Dictionary<string,roleTemplate>()
 	{
-		{"10001",new roleTemplate{id="10001",name="傻逼",hp=4,speed=4,def=0,atk=0,critical=0,dodge=0,res_path="prefabs/role"}},
+		{"10001",new roleTemplate{id="10001",name="傻逼",hp=4,speed=1,def=0,atk=0,critical=0,dodge=0,res_path="prefabs/role"}},
 		{"10002",new roleTemplate{id="10002",name="傻逼",hp=4,speed=4,def=0,atk=0,critical=0,dodge=0,res_path="prefabs/role"}},
 		{"10003",new roleTemplate{id="10003",name="傻逼",hp=4,speed=4,def=0,atk=0,critical=0,dodge=0,res_path="prefabs/role"}},
 		{"10004",new roleTemplate{id="10004",name="傻逼",hp=4,speed=4,def=0,atk=0,critical=0,dodge=0,res_path="prefabs/role"}},
