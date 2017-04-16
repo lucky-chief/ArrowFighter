@@ -5,4 +5,8 @@ Arrow.io是一款射击类游戏，io系列新作。比球球和贪吃蛇的玩�
 * `地图的生成`<br>
 这个我认为arrow.io里面的地图不是随机生成的，而是预先做好了预制(可能有几套)，然后加载进来就行。就像dota，lol的地图一样定死的。毕竟moba类地图的多样化不是很重要，反而是更加追求无变化地形，以方便玩家能方便地记住地形。
 * `经验食物和血量食物的生成`<br>
-先看看arrow.io里这些食物的分布：<br>
+先看看arrow.io里食物的分布：<br>
+![](https://github.com/lucky-chief/imageCache/raw/master/food.jpg)  <br>
+可以知道：<br>
+	* 食物是随机分布的 <br>
+	* 食物不会生成在墙体里面 <br>
