@@ -22,7 +22,7 @@ Arrow.io是一款射击类游戏，io系列新作。比球球和贪吃蛇的玩�
 刷格子之后的地图：<br>
 ![](https://github.com/lucky-chief/imageCache/raw/master/map2.png)  <br>
 ![](https://github.com/lucky-chief/imageCache/raw/master/map3.png)  <br>
-为了方便观察，我把空闲区域的格子都用一个球体占住了。可以看见地图里面的墙体周围都是空的，说明这招行得通。<br>
+为了方便观察，我把空闲区域的格子都用一个球体占住了。可以看见地图里面的墙体都是空的（0），说明这招行得通。<br>
 把数据存入文件里即可。<br>
 ![](https://github.com/lucky-chief/imageCache/raw/master/mapdata.png)  <br>
 其中前三个数据分别是地图的列数、行数、格子的size。数据之间用“|”隔开了。<br>
@@ -34,5 +34,8 @@ Arrow.io是一款射击类游戏，io系列新作。比球球和贪吃蛇的玩�
 
 如下图：<br>
 ![](https://github.com/lucky-chief/imageCache/raw/master/mapfood.png)  <br>
-其中绿色的是经验，红色的血，生成数量分别是300和100，数量是可以控制的。多了性能可能会急剧下降。
-
+其中绿色的是经验，红色的血，生成数量分别是300和100，数量是可以控制的。多了性能可能会急剧下降。<br>
+可以明显地看到食物的生成完全符合了以上三点。所以这是可以行的。<br>
+接下来我打算写一下人物的控制，这款只有两种控制，一个是控制行走，另外一个就是射击了。<br>
+先把标题打上吧。<br>
+## 人物控制
